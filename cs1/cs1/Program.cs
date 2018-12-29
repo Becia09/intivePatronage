@@ -1,4 +1,5 @@
 ﻿using System;
+//using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,21 @@ using System.Threading.Tasks;
 
 namespace cs1
 {
-    public class Hello
+    public class Patronage
     {
-        public static string FizzBuzz()
+        public static void DeepDive()
+        {
+            Console.WriteLine("2. DeepDive");
+            System.IO.Directory.CreateDirectory(@"..\" + Guid.NewGuid()); //. - folder bin/debug
+            //new System.IO.FileInfo(@"D:\intive folder2").Directory.Create();
+        }
+        
+        public static void FizzBuzz()
         {
             //int number = Console.ReadLine() ;
             //Console.WriteLine("Podaj numer w zkresie 0 - 1000");
             int number = 0;
-            bool flag;
+            bool flag = false;
 
             do
             {
@@ -44,18 +52,21 @@ namespace cs1
             {
                 Console.WriteLine("Buzz");
             }
-
-            //Console.WriteLine(number);
-            return "d";
         }
 
         public static void Main()
         {
+            //Guid g;
+            // Create and display the value of two GUIDs.
+            //g = Guid.NewGuid();
+            //Console.WriteLine(g);
+            //Console.WriteLine(Guid.NewGuid());
+
             char choice;// = ' ';
 
             for (;;)
             {
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine("Co mogę dla ciebie zrobić ;) ?");
                 Console.WriteLine("1. FizzBuzz");
                 Console.WriteLine("2. DeepDive");
@@ -71,18 +82,19 @@ namespace cs1
                 {
                     case '1':
                         Console.Clear();
-                        Console.WriteLine("Wybierasz 1. FizzBuzz");
+                        Console.WriteLine("Wybierasz 1. FizzBuzz:");
                         FizzBuzz();
                         break;
 
                     case '2':
                         Console.Clear();
-                        Console.WriteLine("Wybierasz 2. DeepDive");
+                        Console.WriteLine("Wybierasz 2. DeepDive:");
+                        DeepDive();
                         break;
 
                     case '3':
                         Console.Clear();
-                        Console.WriteLine("Wybierasz 3. DrownItDown");
+                        Console.WriteLine("Wybierasz 3. DrownItDown:");
                         break;
 
                     case '4':
