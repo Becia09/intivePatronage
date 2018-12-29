@@ -17,9 +17,9 @@ namespace cs1
 
             do
             {
-                Console.WriteLine("Podaj numer w zakresie 0 - 1000");
+                Console.WriteLine("Podaj liczbę w zakresie 0 - 1000");
                 flag = Int32.TryParse(Console.ReadLine(), out number);
-                Console.WriteLine(number);
+                //Console.WriteLine(number);
                 if (flag == false)
                 {
                     Console.WriteLine("Wartość niepoprawna, spróbuj jeszcze raz");
@@ -32,7 +32,20 @@ namespace cs1
             }
             while (flag == false);
 
-            Console.WriteLine(number);
+            if ((number % 2 == 0) && (number % 3 == 0))
+            {
+                Console.WriteLine("FizzBuzz");
+            }
+            else if (number % 2 == 0)
+            {
+                Console.WriteLine("Fizz");
+            }
+            else if (number % 3 == 0)
+            {
+                Console.WriteLine("Buzz");
+            }
+
+            //Console.WriteLine(number);
             return "d";
         }
 
