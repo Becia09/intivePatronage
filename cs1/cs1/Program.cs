@@ -11,32 +11,36 @@ namespace cs1
     {
         public static int getNumberFromUser(int number, int rangeBottom, int rangeTop)
         {
+            bool flag = false;
+
             do
             {
-                Console.WriteLine("Podaj liczbę w zakresie 0 - 1000");
+                Console.WriteLine("Podaj liczbę w zakresie " + rangeBottom + " - " + rangeTop);
                 flag = Int32.TryParse(Console.ReadLine(), out number);
                 //Console.WriteLine(number);
                 if (flag == false)
                 {
                     Console.WriteLine("Wartość niepoprawna, spróbuj jeszcze raz");
                 }
-                else if (number < 0 || number > 1000)
+                else if (number < rangeBottom || number > rangeTop)
                 {
                     flag = false;
-                    Console.WriteLine("Podana liczba jest mniejsza od 0 lub większa od 1000, spróbuj jeszcze raz");
+                    Console.WriteLine("Podana liczba jest mniejsza od " + rangeBottom + " lub większa od " + rangeTop + ", spróbuj jeszcze raz");
                 }
             }
             while (flag == false);
 
+            //Console.WriteLine(number);
             return number;
         }
 
         public static void DeepDive()
         {
             Console.WriteLine("2. DeepDive");
+            Console.WriteLine("Ile folderów chcesz utworzyć:");
 
-            int quantity = 0;
-            Console.WriteLine("Podaj liczbę od 1 do 5 (ile folderów chcesz utworzyć) ?");
+            int quantityDirectory = 0;
+            getNumberFromUser(quantityDirectory, 1, 5);
             //bool flag = Int32.TryParse(Console.ReadKey(true).KeyChar, out quantity);
             //int quantity = Console.ReadKey(true).KeyChar; //ilość folderów
 
@@ -46,10 +50,16 @@ namespace cs1
         
         public static void FizzBuzz()
         {
+            Console.WriteLine("1. FizzBuzz");
+            Console.WriteLine("Czy liczba jest podzielna przez 2 - Fizz, przez 3 - Buzz czy przez 2 i 3 - FizzBuzz:");
+
+            int numberFizzBuzz = 0;
+            numberFizzBuzz = getNumberFromUser(numberFizzBuzz, 0, 1000);
+
             //int number = Console.ReadLine() ;
             //Console.WriteLine("Podaj numer w zakresie 0 - 1000");
-            int number = 0;
-            bool flag = false;
+            //int number = 0;
+            //bool flag = false;
 
             /*do
             {
@@ -68,17 +78,22 @@ namespace cs1
             }
             while (flag == false);*/
 
-            if ((number % 2 == 0) && (number % 3 == 0))
+            //Console.WriteLine(numberFizzBuzz);
+            if ((numberFizzBuzz % 2 == 0) && (numberFizzBuzz % 3 == 0))
             {
                 Console.WriteLine("FizzBuzz");
             }
-            else if (number % 2 == 0)
+            else if (numberFizzBuzz % 2 == 0)
             {
                 Console.WriteLine("Fizz");
             }
-            else if (number % 3 == 0)
+            else if (numberFizzBuzz % 3 == 0)
             {
                 Console.WriteLine("Buzz");
+            }
+            else
+            {
+                Console.WriteLine("Ani Fizz ani Buzz :D");
             }
         }
 
@@ -94,7 +109,7 @@ namespace cs1
 
             for (;;)
             {
-                //Console.Clear();
+                Console.Clear();
                 Console.WriteLine("Co mogę dla ciebie zrobić ;) ?");
                 Console.WriteLine("1. FizzBuzz");
                 Console.WriteLine("2. DeepDive");
