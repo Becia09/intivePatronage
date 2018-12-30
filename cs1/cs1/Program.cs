@@ -40,6 +40,29 @@ namespace cs1
             return number;
         }
 
+        public static bool closedQuestion(string questions)
+        {
+            ConsoleKey response;
+            do
+            {
+                Console.Write(questions + "[y/n] ");
+                response = Console.ReadKey(false).Key;   // true is intercept key (dont show), false is show
+                if (response != ConsoleKey.Enter)
+                    Console.WriteLine();
+
+            } while (response != ConsoleKey.Y && response != ConsoleKey.N);
+            Console.WriteLine("Odpowiedź: " + response);
+
+            if (response == ConsoleKey.Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static void drownItDown()
         {
             Console.WriteLine("3. DrownItDown:");
@@ -48,7 +71,15 @@ namespace cs1
             if (directory == false)
             {
                 Console.WriteLine("Może najpierw stworzyć foldery na pliki ? Użyj funkcji 2. DeepDive z menu głównego, aby stworzyć foldery na pliki tworzone przez funkcję DrownItDown");
-                ConsoleKey response;
+
+                string questionDeepDive = "Czy chcesz teraz wybrać funkcję DeepDive";
+                
+                if (true == closedQuestion(questionDeepDive))
+                {
+                    deepDive();
+                }
+                
+                /*ConsoleKey response;
                 do
                 {
                     Console.Write("Czy chcesz teraz wybrać funkcję DeepDive [y/n] ");
@@ -61,7 +92,7 @@ namespace cs1
                 if (response == ConsoleKey.Y)
                 {
                     deepDive();
-                }
+                }*/
             }
             else
             {
@@ -78,17 +109,21 @@ namespace cs1
                 filePath = System.IO.Path.Combine(filePath, fileName);
                 Console.WriteLine("Ścieżka do pliku: " + filePath);
 
-                if (!File.Exists(filePath))
+                if (File.Exists(filePath))
+                {
+                    string questionOverwriting = "Plik już istnieje - czy nadpisać ?";
+                    if (closedQuestion(questionOverwriting))
+                    Console.WriteLine("Plik już istniał - nadpisanie");
+                    StreamWriter f = File.CreateText(filePath);
+                    f.Close();
+                }
+
                 {
                     StreamWriter f = File.CreateText(filePath);
                     f.Close();
                 }
                 else
-                {
-                    Console.WriteLine("Plik już istniał - nadpisanie");
-                    StreamWriter f = File.CreateText(filePath);
-                    f.Close();
-                }
+                
                 /*else
                 {
                     FileStream("text" + nr + ".txt", FileMode.CreateNew);
@@ -284,3 +319,15 @@ namespace cs1
         }
     }
 }
+/*zrobić:
+ * kasowanie folderów przy ponownym użyciu deepdiv (w oparciu np. o flagę directory)
+ * przerobić na funkcję opcję y/n
+ * pytać czy nadpisać plik
+ * przerobić for w funkcji tworzącej foldery na rekurencję
+ * dopisać wyjątki
+ */
+
+/*Pytania do zadania:
+ * czy zrobić obiektowo (na klasach niestatycznych ?
+ * czy zrobić np. żeby po funkcji fizzbuzz wyświetlało się pytanie czy uruchomić tą funkcję ponownie ?
+*/
