@@ -1,5 +1,5 @@
 ﻿using System;
-//using System.IO;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,12 @@ namespace cs1
 {
     public class Patronage
     {
+        public static bool directory = false;
+        public static string path = @"..\..\";        //. - folder bin/debug; .. - folder wyżej
+        public static int quantityDirectory;// = folderNames.Count;
+        //public static List<Guid> folderNames = new List<Guid>();
+        public static Guid[] folderNames;// = new Guid[10];
+
         public static int getNumberFromUser(int number, int rangeBottom, int rangeTop)
         {
             bool flag = false;
@@ -36,16 +42,30 @@ namespace cs1
 
         public static void DeepDive()
         {
+            directory = true;
             Console.WriteLine("2. DeepDive");
             Console.WriteLine("Ile folderów chcesz utworzyć:");
 
-            int quantityDirectory = 0;
-            getNumberFromUser(quantityDirectory, 1, 5);
-            //bool flag = Int32.TryParse(Console.ReadKey(true).KeyChar, out quantity);
-            //int quantity = Console.ReadKey(true).KeyChar; //ilość folderów
+            //int quantityDirectory = 0;
 
-            System.IO.Directory.CreateDirectory(@"..\..\" + Guid.NewGuid()); //. - folder bin/debug; .. - folder wyżej
-            //new System.IO.FileInfo(@"D:\intive folder2").Directory.Create();
+            quantityDirectory = getNumberFromUser(quantityDirectory, 1, 5);
+
+            //string path = @"..\..\";        //. - folder bin/debug; .. - folder wyżej
+            folderNames = new Guid[quantityDirectory];
+            Console.WriteLine(quantityDirectory);
+
+            string deepPath = path;
+
+            for (int i = 0; i < quantityDirectory; i++)
+            {
+                //folderNames.Add(Guid.NewGuid());
+                folderNames[i] = Guid.NewGuid();//Guid.NewGuid().ToString();
+                Console.WriteLine(folderNames[i]);
+                System.IO.Directory.CreateDirectory(deepPath + folderNames[i]);
+                deepPath = deepPath + folderNames[i] + "\\";
+                Console.WriteLine("Ścieżka do ostatniego folderu: " + deepPath);
+                Console.WriteLine("Ścieżka do pierwszego folderu: " + path);
+            }
         }
         
         public static void FizzBuzz()
@@ -143,6 +163,12 @@ namespace cs1
                     case '4':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 4. Exit");
+                        if (directory)
+                        //if (Directory.Exists(path + folderNames[0]))
+                        {
+                            Console.WriteLine(Directory.Exists(path + folderNames[0]));
+                            //Directory.Delete(path + folderNames[0], true);
+                        }
                         System.Environment.Exit(1);
                         break;
 
