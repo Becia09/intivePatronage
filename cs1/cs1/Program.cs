@@ -9,20 +9,8 @@ namespace cs1
 {
     public class Patronage
     {
-        public static void DeepDive()
+        public static int getNumberFromUser(int number, int rangeBottom, int rangeTop)
         {
-            Console.WriteLine("2. DeepDive");
-            System.IO.Directory.CreateDirectory(@"..\" + Guid.NewGuid()); //. - folder bin/debug
-            //new System.IO.FileInfo(@"D:\intive folder2").Directory.Create();
-        }
-        
-        public static void FizzBuzz()
-        {
-            //int number = Console.ReadLine() ;
-            //Console.WriteLine("Podaj numer w zkresie 0 - 1000");
-            int number = 0;
-            bool flag = false;
-
             do
             {
                 Console.WriteLine("Podaj liczbę w zakresie 0 - 1000");
@@ -39,6 +27,46 @@ namespace cs1
                 }
             }
             while (flag == false);
+
+            return number;
+        }
+
+        public static void DeepDive()
+        {
+            Console.WriteLine("2. DeepDive");
+
+            int quantity = 0;
+            Console.WriteLine("Podaj liczbę od 1 do 5 (ile folderów chcesz utworzyć) ?");
+            //bool flag = Int32.TryParse(Console.ReadKey(true).KeyChar, out quantity);
+            //int quantity = Console.ReadKey(true).KeyChar; //ilość folderów
+
+            System.IO.Directory.CreateDirectory(@"..\..\" + Guid.NewGuid()); //. - folder bin/debug; .. - folder wyżej
+            //new System.IO.FileInfo(@"D:\intive folder2").Directory.Create();
+        }
+        
+        public static void FizzBuzz()
+        {
+            //int number = Console.ReadLine() ;
+            //Console.WriteLine("Podaj numer w zakresie 0 - 1000");
+            int number = 0;
+            bool flag = false;
+
+            /*do
+            {
+                Console.WriteLine("Podaj liczbę w zakresie 0 - 1000");
+                flag = Int32.TryParse(Console.ReadLine(), out number);
+                //Console.WriteLine(number);
+                if (flag == false)
+                {
+                    Console.WriteLine("Wartość niepoprawna, spróbuj jeszcze raz");
+                }
+                else if (number < 0 || number > 1000)
+                {
+                    flag = false;
+                    Console.WriteLine("Podana liczba jest mniejsza od 0 lub większa od 1000, spróbuj jeszcze raz");
+                }
+            }
+            while (flag == false);*/
 
             if ((number % 2 == 0) && (number % 3 == 0))
             {
@@ -62,7 +90,7 @@ namespace cs1
             //Console.WriteLine(g);
             //Console.WriteLine(Guid.NewGuid());
 
-            char choice;// = ' ';
+            char choice = ' ';
 
             for (;;)
             {
