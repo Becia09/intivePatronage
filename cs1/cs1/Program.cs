@@ -10,7 +10,7 @@ namespace cs1
     public class Patronage
     {
         public static bool directory = false;
-        public static string path = @"..\..\deepDive\";        //. - folder bin/debug; .. - folder wyżej
+        public static string path = @"..\..\deepDive\";        // lub "..\\..\\deepDive\\";         //. - folder bin/debug; .. - folder wyżej
         public static int quantityDirectory;// = folderNames.Count;
         //public static List<Guid> folderNames = new List<Guid>();
         public static Guid[] folderNames;// = new Guid[10];
@@ -66,7 +66,7 @@ namespace cs1
             else
             {
                 int fileLevel = 0;
-                fileLevel = getNumberFromUser(fileLevel, 1, 5);
+                fileLevel = getNumberFromUser(fileLevel, 1, quantityDirectory);
                 string fileName = "plik";
 
                 string filePath = path;
@@ -77,7 +77,23 @@ namespace cs1
                 }
                 filePath = System.IO.Path.Combine(filePath, fileName);
                 Console.WriteLine("Ścieżka do pliku: " + filePath);
-                if (!System.IO.File.Exists(filePath + fileName))
+
+                if (!File.Exists(filePath))
+                {
+                    StreamWriter f = File.CreateText(filePath);
+                    f.Close();
+                }
+                else
+                {
+                    Console.WriteLine("Plik już istniał - nadpisanie");
+                    StreamWriter f = File.CreateText(filePath);
+                    f.Close();
+                }
+                /*else
+                {
+                    FileStream("text" + nr + ".txt", FileMode.CreateNew);
+                }*/
+                /*if (!System.IO.File.Exists(filePath))
                 {
                     using (System.IO.FileStream fs = System.IO.File.Create(filePath + fileName))
                     {
@@ -91,7 +107,7 @@ namespace cs1
                 {
                     Console.WriteLine("File \"{0}\" already exists.", fileName);
                     return;
-                }
+                }*/
             }
         }
 
@@ -170,8 +186,6 @@ namespace cs1
             {
                 Console.WriteLine("Ani Fizz ani Buzz :D");
             }
-
-            //Console.WriteLine("Może jeszcze raz ?");                      ????
         }
 
         public static void Main()
@@ -226,17 +240,36 @@ namespace cs1
                     case '3':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 3. DrownItDown:");
+                        drownItDown();
                         break;
 
                     case '4':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 4. Exit");
-                        if (directory)
-                        //if (Directory.Exists(path))
+                        
+                        if (folderNames != null)        //czy tablica jest zainicjalizowana
                         {
-                            Console.WriteLine(Directory.Exists(path));
-                            Directory.Delete(path + folderNames[0], true);
+                            //Console.WriteLine("Folder: " + path + folderNames[0]);
+                            //if (directory)
+                            if (Directory.Exists(path + folderNames[0]))
+                            {
+                                Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames[0]));
+                                //Directory.Delete(path + folderNames[0], true);
+                                try
+                                {
+                                    Directory.Delete(path + folderNames[0], true);
+                                }
+                                catch (IOException)
+                                {
+                                    Console.WriteLine("Nie udało się skasować folderu: " + folderNames[0] + ", na ścieżce: " + path);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames[0]));
+                            }
                         }
+
                         System.Environment.Exit(1);
                         break;
 
