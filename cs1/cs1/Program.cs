@@ -67,6 +67,31 @@ namespace cs1
             {
                 int fileLevel = 0;
                 fileLevel = getNumberFromUser(fileLevel, 1, 5);
+                string fileName = "plik";
+
+                string filePath = path;
+
+                for (int i = 0; i < fileLevel; i++)
+                {
+                    filePath = filePath + folderNames[i] + "\\";
+                }
+                filePath = System.IO.Path.Combine(filePath, fileName);
+                Console.WriteLine("Ścieżka do pliku: " + filePath);
+                if (!System.IO.File.Exists(filePath + fileName))
+                {
+                    using (System.IO.FileStream fs = System.IO.File.Create(filePath + fileName))
+                    {
+                        for (byte i = 0; i < 100; i++)
+                        {
+                            fs.WriteByte(i);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("File \"{0}\" already exists.", fileName);
+                    return;
+                }
             }
         }
 
