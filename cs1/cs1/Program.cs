@@ -109,20 +109,26 @@ namespace cs1
                 filePath = System.IO.Path.Combine(filePath, fileName);
                 Console.WriteLine("Ścieżka do pliku: " + filePath);
 
-                if (File.Exists(filePath))
+                bool fileCreate = false;
+                if (false == File.Exists(filePath))
                 {
-                    string questionOverwriting = "Plik już istnieje - czy nadpisać ?";
-                    if (closedQuestion(questionOverwriting))
-                    Console.WriteLine("Plik już istniał - nadpisanie");
-                    StreamWriter f = File.CreateText(filePath);
-                    f.Close();
-                }
-
-                {
-                    StreamWriter f = File.CreateText(filePath);
-                    f.Close();
+                    fileCreate = true;
                 }
                 else
+                {
+                    string questionOverwriting = "Plik już istnieje - czy nadpisać ?";
+                    if (true == closedQuestion(questionOverwriting))
+                    {
+                        fileCreate = true;
+                        Console.WriteLine("Plik już istniał - nadpisanie:");
+                    }
+                }
+
+                if (true == fileCreate)
+                {
+                    StreamWriter f = File.CreateText(filePath);
+                    f.Close();
+                }
                 
                 /*else
                 {
