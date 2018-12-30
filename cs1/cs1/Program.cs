@@ -10,7 +10,7 @@ namespace cs1
     public class Patronage
     {
         public static bool directory = false;
-        public static string path = @"..\..\";        //. - folder bin/debug; .. - folder wyżej
+        public static string path = @"..\..\deepDive\";        //. - folder bin/debug; .. - folder wyżej
         public static int quantityDirectory;// = folderNames.Count;
         //public static List<Guid> folderNames = new List<Guid>();
         public static Guid[] folderNames;// = new Guid[10];
@@ -40,7 +40,37 @@ namespace cs1
             return number;
         }
 
-        public static void DeepDive()
+        public static void drownItDown()
+        {
+            Console.WriteLine("3. DrownItDown:");
+            Console.WriteLine("Tworzenie pliku na wybranym poziomie");
+
+            if (directory == false)
+            {
+                Console.WriteLine("Może najpierw stworzyć foldery na pliki ? Użyj funkcji 2. DeepDive z menu głównego, aby stworzyć foldery na pliki tworzone przez funkcję DrownItDown");
+                ConsoleKey response;
+                do
+                {
+                    Console.Write("Czy chcesz teraz wybrać funkcję DeepDive [y/n] ");
+                    response = Console.ReadKey(false).Key;   // true is intercept key (dont show), false is show
+                    if (response != ConsoleKey.Enter)
+                        Console.WriteLine();
+
+                } while (response != ConsoleKey.Y && response != ConsoleKey.N);
+                Console.WriteLine(response);
+                if (response == ConsoleKey.Y)
+                {
+                    deepDive();
+                }
+            }
+            else
+            {
+                int fileLevel = 0;
+                fileLevel = getNumberFromUser(fileLevel, 1, 5);
+            }
+        }
+
+        public static void deepDive()
         {
             directory = true;
             Console.WriteLine("2. DeepDive");
@@ -68,7 +98,7 @@ namespace cs1
             }
         }
         
-        public static void FizzBuzz()
+        public static void fizzBuzz()
         {
             Console.WriteLine("1. FizzBuzz");
             Console.WriteLine("Czy liczba jest podzielna przez 2 - Fizz, przez 3 - Buzz czy przez 2 i 3 - FizzBuzz:");
@@ -115,10 +145,23 @@ namespace cs1
             {
                 Console.WriteLine("Ani Fizz ani Buzz :D");
             }
+
+            //Console.WriteLine("Może jeszcze raz ?");                      ????
         }
 
         public static void Main()
         {
+            /*ConsoleKey response;
+            do
+            {
+                Console.Write("Are you sure you want to choose this as your login key? [y/n] ");
+                response = Console.ReadKey(false).Key;   // true is intercept key (dont show), false is show
+                if (response != ConsoleKey.Enter)
+                    Console.WriteLine();
+
+            } while (response != ConsoleKey.Y && response != ConsoleKey.N);
+            Console.WriteLine(response);*/
+
             //Guid g;
             // Create and display the value of two GUIDs.
             //g = Guid.NewGuid();
@@ -146,13 +189,13 @@ namespace cs1
                     case '1':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 1. FizzBuzz:");
-                        FizzBuzz();
+                        fizzBuzz();
                         break;
 
                     case '2':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 2. DeepDive:");
-                        DeepDive();
+                        deepDive();
                         break;
 
                     case '3':
@@ -164,10 +207,10 @@ namespace cs1
                         Console.Clear();
                         Console.WriteLine("Wybierasz 4. Exit");
                         if (directory)
-                        //if (Directory.Exists(path + folderNames[0]))
+                        //if (Directory.Exists(path))
                         {
-                            Console.WriteLine(Directory.Exists(path + folderNames[0]));
-                            //Directory.Delete(path + folderNames[0], true);
+                            Console.WriteLine(Directory.Exists(path));
+                            Directory.Delete(path + folderNames[0], true);
                         }
                         System.Environment.Exit(1);
                         break;
