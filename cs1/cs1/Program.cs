@@ -59,11 +59,10 @@ namespace cs1
         {
             if (Directory.Exists(path + folderNames))
             {
-                Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames));
                 try
                 {
                     Directory.Delete(path + folderNames, true);
-                    Console.WriteLine("Folder skasowany");
+                    //Console.WriteLine("Folder skasowany");
                     return true;
                 }
                 catch (IOException)
@@ -87,7 +86,7 @@ namespace cs1
         public static void drownItDown()
         {
             Console.WriteLine("3. DrownItDown:");
-            Console.WriteLine("Tworzenie pliku na wybranym poziomie");
+            Console.WriteLine("Tworzenie pliku na wybranym poziomie\n");
 
             if (null == folderNames)
             {
