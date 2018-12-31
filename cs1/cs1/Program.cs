@@ -9,7 +9,7 @@ namespace cs1
 {
     public class Patronage
     {
-        public static bool directory = false;
+        //public static bool directory = false;
         public static string path = @"..\..\deepDive\";        // lub "..\\..\\deepDive\\";         //. - folder bin/debug; .. - folder wyżej
         public static int quantityDirectory;// = folderNames.Count;
         //public static List<Guid> folderNames = new List<Guid>();
@@ -63,12 +63,37 @@ namespace cs1
             }
         }
 
+        public static bool deleteDirectory(string path, Guid folderNames)
+        {
+            if (Directory.Exists(path + folderNames))
+            {
+                Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames));
+                //Directory.Delete(path + folderNames[0], true);
+                try
+                {
+                    Directory.Delete(path + folderNames, true);
+                    Console.WriteLine("Folder skasowany");
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Nie udało się skasować folderu: " + folderNames + ", na ścieżce: " + path);
+                    return false;
+                }
+            }
+            else  //jeśli tablica z nazwami jest zainicjalizowana, a folderu nie ma
+            {
+                Console.WriteLine("Folder nie istniał");
+                return true;
+            }
+        }
+
         public static void drownItDown()
         {
             Console.WriteLine("3. DrownItDown:");
             Console.WriteLine("Tworzenie pliku na wybranym poziomie");
 
-            if (directory == false)
+            if (null == folderNames)
             {
                 Console.WriteLine("Może najpierw stworzyć foldery na pliki ? Użyj funkcji 2. DeepDive z menu głównego, aby stworzyć foldery na pliki tworzone przez funkcję DrownItDown");
 
@@ -154,8 +179,21 @@ namespace cs1
 
         public static void deepDive()
         {
-            directory = true;
-            Console.WriteLine("2. DeepDive");
+            //directory = true;
+            if (folderNames != null)
+            {
+                Console.WriteLine("Struktura folderów została już utworzona przez funkcję DeepDive:");
+                string questionDirectory = "Czy chcesz stworzyć nową strukturę folderów ?";
+                if (true == closedQuestion(questionDirectory))
+                {
+                    deleteDirectory(path, folderNames[0]);
+                    folderNames = null;
+                }
+                else
+                {
+                    return;
+                }
+            }
             Console.WriteLine("Ile folderów chcesz utworzyć:");
 
             //int quantityDirectory = 0;
@@ -290,9 +328,10 @@ namespace cs1
                         
                         if (folderNames != null)        //czy tablica jest zainicjalizowana
                         {
+                            deleteDirectory(path, folderNames[0]);
                             //Console.WriteLine("Folder: " + path + folderNames[0]);
                             //if (directory)
-                            if (Directory.Exists(path + folderNames[0]))
+                            /*if (Directory.Exists(path + folderNames[0]))
                             {
                                 Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames[0]));
                                 //Directory.Delete(path + folderNames[0], true);
@@ -308,7 +347,7 @@ namespace cs1
                             else
                             {
                                 Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames[0]));
-                            }
+                            }*/
                         }
 
                         System.Environment.Exit(1);
@@ -326,9 +365,9 @@ namespace cs1
     }
 }
 /*zrobić:
- * kasowanie folderów przy ponownym użyciu deepdiv (w oparciu np. o flagę directory)
- * przerobić na funkcję opcję y/n
- * pytać czy nadpisać plik
+ * kasowanie folderów przy ponownym użyciu deepdiv (w oparciu np. o flagę directory albo if (folderNames != null))
+ v przerobić na funkcję opcję y/n
+ v pytać czy nadpisać plik
  * przerobić for w funkcji tworzącej foldery na rekurencję
  * dopisać wyjątki
  */
