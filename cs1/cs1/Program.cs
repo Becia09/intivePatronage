@@ -77,7 +77,12 @@ namespace cs1
                 }
                 catch (IOException)
                 {
-                    Console.WriteLine("Nie udało się skasować folderu: " + folderNames + ", na ścieżce: " + path);
+                    Console.WriteLine("Nie udało się skasować folderu: " + folderNames + ", na ścieżce: " + path + ", być może inny program (np. explorator windows) go używa");
+                    string deleteDirectoryAgain = "Czy spróbować ponownie skasować folder folderNames";
+                    if (closedQuestion(deleteDirectoryAgain))
+                    {
+                        deleteDirectory(path, folderNames);
+                    }
                     return false;
                 }
             }
@@ -123,7 +128,7 @@ namespace cs1
             {
                 int fileLevel = 0;
                 fileLevel = getNumberFromUser(fileLevel, 1, quantityDirectory);
-                string fileName = "plik";
+                string fileName = "plik.txt";
 
                 string filePath = path;
 
@@ -151,10 +156,19 @@ namespace cs1
 
                 if (true == fileCreate)
                 {
-                    StreamWriter f = File.CreateText(filePath);
-                    f.Close();
+                    //StreamWriter f = File.CreateText(filePath);
+                    //f.Close();
+                    try
+                    {
+                        StreamWriter f = File.CreateText(filePath);
+                        f.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Nie udało się utworzyć pliku");
+                    }
                 }
-                
+
                 /*else
                 {
                     FileStream("text" + nr + ".txt", FileMode.CreateNew);
@@ -174,6 +188,7 @@ namespace cs1
                     Console.WriteLine("File \"{0}\" already exists.", fileName);
                     return;
                 }*/
+                Console.WriteLine("Plik został utworzony. Naciśnij enter aby powrócić do menu");
             }
         }
 
@@ -206,16 +221,35 @@ namespace cs1
 
             string deepPath = path;
 
-            for (int i = 0; i < quantityDirectory; i++)
+            for (int i = 0; i < quantityDirectory; i++)         //iteracyjnie
             {
                 //folderNames.Add(Guid.NewGuid());
                 folderNames[i] = Guid.NewGuid();//Guid.NewGuid().ToString();
-                Console.WriteLine(folderNames[i]);
+                //Console.WriteLine(folderNames[i]);
                 System.IO.Directory.CreateDirectory(deepPath + folderNames[i]);
                 deepPath = deepPath + folderNames[i] + "\\";
-                Console.WriteLine("Ścieżka do ostatniego folderu: " + deepPath);
-                Console.WriteLine("Ścieżka do pierwszego folderu: " + path);
+                //Console.WriteLine("Ścieżka do ostatniego folderu: " + deepPath);
+                //Console.WriteLine("Ścieżka do pierwszego folderu: " + path);
             }
+
+            /*string deepPathRecursion = path;
+            int j = 0;
+            string createDirectory(int quantityDirectory, string deepPathRec)
+            {
+                if (quantityDirectory == 1)
+                {
+                    folderNames[j] = Guid.NewGuid();
+                    System.IO.Directory.CreateDirectory(deepPathRecursion + folderNames[j]);
+                    return deepPathRecursion + folderNames[j] + "\\";
+                }
+                j++;
+                return createDirectory(quantityDirectory - 1, deepPathRec);
+            }
+            Console.WriteLine("Ścieżka po createDirectory: " + deepPathRecursion);
+            deepPathRecursion = createDirectory(quantityDirectory, deepPathRecursion);
+            Console.WriteLine("Ścieżka2 po createDirectory: " + deepPathRecursion);*/
+
+            Console.WriteLine("Struktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
         }
         
         public static void fizzBuzz()
@@ -265,6 +299,7 @@ namespace cs1
             {
                 Console.WriteLine("Ani Fizz ani Buzz :D");
             }
+            Console.WriteLine("Naciśnij enter aby powrócić do menu");
         }
 
         public static void Main()
@@ -365,7 +400,7 @@ namespace cs1
     }
 }
 /*zrobić:
- * kasowanie folderów przy ponownym użyciu deepdiv (w oparciu np. o flagę directory albo if (folderNames != null))
+ v kasowanie folderów przy ponownym użyciu deepdiv (w oparciu np. o flagę directory albo if (folderNames != null))
  v przerobić na funkcję opcję y/n
  v pytać czy nadpisać plik
  * przerobić for w funkcji tworzącej foldery na rekurencję
