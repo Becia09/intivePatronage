@@ -1,19 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cs1
 {
     public class Patronage
     {
-        //public static bool directory = false;
-        public static string path = @"..\..\deepDive\";        // lub "..\\..\\deepDive\\";         //. - folder bin/debug; .. - folder wyżej
-        public static int quantityDirectory;// = folderNames.Count;
-        //public static List<Guid> folderNames = new List<Guid>();
-        public static Guid[] folderNames;// = new Guid[10];
+        public static string path = @"..\..\deepDive\";
+        public static int quantityDirectory;
+        public static Guid[] folderNames;
 
         public static int getNumberFromUser(int number, int rangeBottom, int rangeTop)
         {
@@ -23,7 +17,6 @@ namespace cs1
             {
                 Console.WriteLine("Podaj liczbę w zakresie " + rangeBottom + " - " + rangeTop);
                 flag = Int32.TryParse(Console.ReadLine(), out number);
-                //Console.WriteLine(number);
                 if (flag == false)
                 {
                     Console.WriteLine("Wartość niepoprawna, spróbuj jeszcze raz");
@@ -36,7 +29,6 @@ namespace cs1
             }
             while (flag == false);
 
-            //Console.WriteLine(number);
             return number;
         }
 
@@ -46,12 +38,12 @@ namespace cs1
             do
             {
                 Console.Write(questions + "[y/n] ");
-                response = Console.ReadKey(false).Key;   // true is intercept key (dont show), false is show
+                response = Console.ReadKey(false).Key;
                 if (response != ConsoleKey.Enter)
+                {
                     Console.WriteLine();
-
+                }
             } while (response != ConsoleKey.Y && response != ConsoleKey.N);
-            Console.WriteLine("Odpowiedź: " + response);
 
             if (response == ConsoleKey.Y)
             {
@@ -68,7 +60,6 @@ namespace cs1
             if (Directory.Exists(path + folderNames))
             {
                 Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames));
-                //Directory.Delete(path + folderNames[0], true);
                 try
                 {
                     Directory.Delete(path + folderNames, true);
@@ -86,7 +77,7 @@ namespace cs1
                     return false;
                 }
             }
-            else  //jeśli tablica z nazwami jest zainicjalizowana, a folderu nie ma
+            else
             {
                 Console.WriteLine("Folder nie istniał");
                 return true;
@@ -108,21 +99,6 @@ namespace cs1
                 {
                     deepDive();
                 }
-                
-                /*ConsoleKey response;
-                do
-                {
-                    Console.Write("Czy chcesz teraz wybrać funkcję DeepDive [y/n] ");
-                    response = Console.ReadKey(false).Key;   // true is intercept key (dont show), false is show
-                    if (response != ConsoleKey.Enter)
-                        Console.WriteLine();
-
-                } while (response != ConsoleKey.Y && response != ConsoleKey.N);
-                Console.WriteLine(response);
-                if (response == ConsoleKey.Y)
-                {
-                    deepDive();
-                }*/
             }
             else
             {
@@ -156,8 +132,6 @@ namespace cs1
 
                 if (true == fileCreate)
                 {
-                    //StreamWriter f = File.CreateText(filePath);
-                    //f.Close();
                     try
                     {
                         StreamWriter f = File.CreateText(filePath);
@@ -169,32 +143,12 @@ namespace cs1
                     }
                 }
 
-                /*else
-                {
-                    FileStream("text" + nr + ".txt", FileMode.CreateNew);
-                }*/
-                /*if (!System.IO.File.Exists(filePath))
-                {
-                    using (System.IO.FileStream fs = System.IO.File.Create(filePath + fileName))
-                    {
-                        for (byte i = 0; i < 100; i++)
-                        {
-                            fs.WriteByte(i);
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("File \"{0}\" already exists.", fileName);
-                    return;
-                }*/
-                Console.WriteLine("Plik został utworzony. Naciśnij enter aby powrócić do menu");
+                Console.WriteLine("\nPlik został utworzony. Naciśnij enter aby powrócić do menu");
             }
         }
 
         public static void deepDive()
         {
-            //directory = true;
             if (folderNames != null)
             {
                 Console.WriteLine("Struktura folderów została już utworzona przez funkcję DeepDive:");
@@ -209,47 +163,22 @@ namespace cs1
                     return;
                 }
             }
-            Console.WriteLine("Ile folderów chcesz utworzyć:");
-
-            //int quantityDirectory = 0;
+            Console.WriteLine("\nIle folderów chcesz utworzyć:");
 
             quantityDirectory = getNumberFromUser(quantityDirectory, 1, 5);
 
-            //string path = @"..\..\";        //. - folder bin/debug; .. - folder wyżej
             folderNames = new Guid[quantityDirectory];
-            Console.WriteLine(quantityDirectory);
 
             string deepPath = path;
 
-            for (int i = 0; i < quantityDirectory; i++)         //iteracyjnie
+            for (int i = 0; i < quantityDirectory; i++)
             {
-                //folderNames.Add(Guid.NewGuid());
-                folderNames[i] = Guid.NewGuid();//Guid.NewGuid().ToString();
-                //Console.WriteLine(folderNames[i]);
+                folderNames[i] = Guid.NewGuid();
                 System.IO.Directory.CreateDirectory(deepPath + folderNames[i]);
                 deepPath = deepPath + folderNames[i] + "\\";
-                //Console.WriteLine("Ścieżka do ostatniego folderu: " + deepPath);
-                //Console.WriteLine("Ścieżka do pierwszego folderu: " + path);
             }
 
-            /*string deepPathRecursion = path;
-            int j = 0;
-            string createDirectory(int quantityDirectory, string deepPathRec)
-            {
-                if (quantityDirectory == 1)
-                {
-                    folderNames[j] = Guid.NewGuid();
-                    System.IO.Directory.CreateDirectory(deepPathRecursion + folderNames[j]);
-                    return deepPathRecursion + folderNames[j] + "\\";
-                }
-                j++;
-                return createDirectory(quantityDirectory - 1, deepPathRec);
-            }
-            Console.WriteLine("Ścieżka po createDirectory: " + deepPathRecursion);
-            deepPathRecursion = createDirectory(quantityDirectory, deepPathRecursion);
-            Console.WriteLine("Ścieżka2 po createDirectory: " + deepPathRecursion);*/
-
-            Console.WriteLine("Struktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
+            Console.WriteLine("\nStruktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
         }
         
         public static void fizzBuzz()
@@ -260,29 +189,6 @@ namespace cs1
             int numberFizzBuzz = 0;
             numberFizzBuzz = getNumberFromUser(numberFizzBuzz, 0, 1000);
 
-            //int number = Console.ReadLine() ;
-            //Console.WriteLine("Podaj numer w zakresie 0 - 1000");
-            //int number = 0;
-            //bool flag = false;
-
-            /*do
-            {
-                Console.WriteLine("Podaj liczbę w zakresie 0 - 1000");
-                flag = Int32.TryParse(Console.ReadLine(), out number);
-                //Console.WriteLine(number);
-                if (flag == false)
-                {
-                    Console.WriteLine("Wartość niepoprawna, spróbuj jeszcze raz");
-                }
-                else if (number < 0 || number > 1000)
-                {
-                    flag = false;
-                    Console.WriteLine("Podana liczba jest mniejsza od 0 lub większa od 1000, spróbuj jeszcze raz");
-                }
-            }
-            while (flag == false);*/
-
-            //Console.WriteLine(numberFizzBuzz);
             if ((numberFizzBuzz % 2 == 0) && (numberFizzBuzz % 3 == 0))
             {
                 Console.WriteLine("FizzBuzz");
@@ -299,28 +205,11 @@ namespace cs1
             {
                 Console.WriteLine("Ani Fizz ani Buzz :D");
             }
-            Console.WriteLine("Naciśnij enter aby powrócić do menu");
+            Console.WriteLine("\nNaciśnij enter aby powrócić do menu");
         }
 
         public static void Main()
         {
-            /*ConsoleKey response;
-            do
-            {
-                Console.Write("Are you sure you want to choose this as your login key? [y/n] ");
-                response = Console.ReadKey(false).Key;   // true is intercept key (dont show), false is show
-                if (response != ConsoleKey.Enter)
-                    Console.WriteLine();
-
-            } while (response != ConsoleKey.Y && response != ConsoleKey.N);
-            Console.WriteLine(response);*/
-
-            //Guid g;
-            // Create and display the value of two GUIDs.
-            //g = Guid.NewGuid();
-            //Console.WriteLine(g);
-            //Console.WriteLine(Guid.NewGuid());
-
             char choice = ' ';
 
             for (;;)
@@ -332,7 +221,6 @@ namespace cs1
                 Console.WriteLine("3. DrownItDown");
                 Console.WriteLine("4. Exit");
 
-                //choice = Console.ReadLine();    //wybor
                 choice = Console.ReadKey(true).KeyChar;
 
                 Console.WriteLine(choice);
@@ -361,28 +249,9 @@ namespace cs1
                         Console.Clear();
                         Console.WriteLine("Wybierasz 4. Exit");
                         
-                        if (folderNames != null)        //czy tablica jest zainicjalizowana
+                        if (folderNames != null)
                         {
                             deleteDirectory(path, folderNames[0]);
-                            //Console.WriteLine("Folder: " + path + folderNames[0]);
-                            //if (directory)
-                            /*if (Directory.Exists(path + folderNames[0]))
-                            {
-                                Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames[0]));
-                                //Directory.Delete(path + folderNames[0], true);
-                                try
-                                {
-                                    Directory.Delete(path + folderNames[0], true);
-                                }
-                                catch (IOException)
-                                {
-                                    Console.WriteLine("Nie udało się skasować folderu: " + folderNames[0] + ", na ścieżce: " + path);
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Czy folder istnieje: " + Directory.Exists(path + folderNames[0]));
-                            }*/
                         }
 
                         System.Environment.Exit(1);
@@ -394,20 +263,7 @@ namespace cs1
                         break;
                 }
                 Console.ReadKey();
-                //Console.Clear();
             }
         }
     }
 }
-/*zrobić:
- v kasowanie folderów przy ponownym użyciu deepdiv (w oparciu np. o flagę directory albo if (folderNames != null))
- v przerobić na funkcję opcję y/n
- v pytać czy nadpisać plik
- * przerobić for w funkcji tworzącej foldery na rekurencję
- * dopisać wyjątki
- */
-
-/*Pytania do zadania:
- * czy zrobić obiektowo (na klasach niestatycznych ?
- * czy zrobić np. żeby po funkcji fizzbuzz wyświetlało się pytanie czy uruchomić tą funkcję ponownie ?
-*/
