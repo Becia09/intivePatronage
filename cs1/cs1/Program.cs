@@ -57,11 +57,12 @@ namespace cs1
 
         public static bool deleteDirectory(string path, Guid folderNames)
         {
-            if (Directory.Exists(path + folderNames))
+            string folderPath = Path.Combine(path, folderNames.ToString());
+            if (Directory.Exists(folderPath))
             {
                 try
                 {
-                    Directory.Delete(path + folderNames, true);
+                    Directory.Delete(folderPath, true);
                     //Console.WriteLine("Folder skasowany");
                     return true;
                 }
@@ -219,6 +220,11 @@ namespace cs1
                 Console.WriteLine("2. DeepDive");
                 Console.WriteLine("3. DrownItDown");
                 Console.WriteLine("4. Exit");
+
+                /*Console.WriteLine("Path.AltDirectorySeparatorChar={0}", Path.AltDirectorySeparatorChar);
+                Console.WriteLine("Path.DirectorySeparatorChar={0}", Path.DirectorySeparatorChar);
+                Console.WriteLine("Path.PathSeparator={0}", Path.PathSeparator);
+                Console.WriteLine("Path.VolumeSeparatorChar={0}", Path.VolumeSeparatorChar);*/
 
                 choice = Console.ReadKey(true).KeyChar;
 
