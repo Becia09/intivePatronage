@@ -7,7 +7,7 @@ namespace cs1
     {
         public static string path = @"..\..\deepDive\";
         public static int quantityDirectory;
-        public static Guid[] folderNames;
+        public static string[] folderNames;
 
         public static int getNumberFromUser(int number, int rangeBottom, int rangeTop)
         {
@@ -55,9 +55,9 @@ namespace cs1
             }
         }
 
-        public static bool deleteDirectory(string path, Guid folderNames)
+        public static bool deleteDirectory(string path, string folderNames)
         {
-            string folderPath = Path.Combine(path, folderNames.ToString());
+            string folderPath = Path.Combine(path, folderNames);
             if (Directory.Exists(folderPath))
             {
                 try
@@ -110,9 +110,9 @@ namespace cs1
 
                 for (int i = 0; i < fileLevel; i++)
                 {
-                    filePath = filePath + folderNames[i] + "\\";
+                    filePath = Path.Combine(filePath, folderNames[i]);
                 }
-                filePath = System.IO.Path.Combine(filePath, fileName);
+                filePath = Path.Combine(filePath, fileName);
                 Console.WriteLine("Ścieżka do pliku: " + filePath);
 
                 bool fileCreate = false;
@@ -126,7 +126,7 @@ namespace cs1
                     if (true == closedQuestion(questionOverwriting))
                     {
                         fileCreate = true;
-                        Console.WriteLine("Plik już istniał - nadpisanie:");
+                        //Console.WriteLine("Plik już istniał - nadpisanie:");
                     }
                 }
 
@@ -139,11 +139,19 @@ namespace cs1
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Nie udało się utworzyć pliku");
+                        Console.WriteLine("Nie udało się utworzyć nowego pliku. Naciśnij enter aby powrócić do menu");
+                        return;
                     }
                 }
 
-                Console.WriteLine("\nPlik został utworzony. Naciśnij enter aby powrócić do menu");
+                if (true == fileCreate)
+                {
+                    Console.WriteLine("\nPlik został utworzony. Naciśnij enter aby powrócić do menu");
+                }
+                else
+                {
+                    Console.WriteLine("\nPoprzedni plik nie został nadpisany. Naciśnij enter aby powrócić do menu");
+                }
             }
         }
 
@@ -167,15 +175,19 @@ namespace cs1
 
             quantityDirectory = getNumberFromUser(quantityDirectory, 1, 5);
 
-            folderNames = new Guid[quantityDirectory];
+            folderNames = new string[quantityDirectory];
 
             string deepPath = path;
 
             for (int i = 0; i < quantityDirectory; i++)
             {
-                folderNames[i] = Guid.NewGuid();
-                System.IO.Directory.CreateDirectory(deepPath + folderNames[i]);
-                deepPath = deepPath + folderNames[i] + "\\";
+                folderNames[i] = Guid.NewGuid().ToString() + Path.DirectorySeparatorChar;
+                Console.WriteLine(folderNames[i]);
+                Directory.CreateDirectory(deepPath + folderNames[i]);
+                //deepPath = deepPath + folderNames[i] + "\\";
+                deepPath = Path.Combine(deepPath, folderNames[i]);
+
+                Console.WriteLine("Ścieżka do ostatniego folderu: " + deepPath);
             }
 
             Console.WriteLine("\nStruktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
