@@ -9,7 +9,7 @@ namespace cs1
         public static int quantityDirectory;
         public static string[] folderNames;
 
-        public static int getNumberFromUser(int number, int rangeBottom, int rangeTop)
+        public static int GetNumberFromUser(int number, int rangeBottom, int rangeTop)
         {
             bool flag = false;
 
@@ -32,7 +32,7 @@ namespace cs1
             return number;
         }
 
-        public static bool closedQuestion(string questions)
+        public static bool ClosedQuestion(string questions)
         {
             ConsoleKey response;
             do
@@ -55,7 +55,7 @@ namespace cs1
             }
         }
 
-        public static bool deleteDirectory(string path, string folderNames)
+        public static bool DeleteDirectory(string path, string folderNames)
         {
             string folderPath = Path.Combine(path, folderNames);
             if (Directory.Exists(folderPath))
@@ -70,9 +70,9 @@ namespace cs1
                 {
                     Console.WriteLine("Nie udało się skasować folderu: " + folderNames + ", na ścieżce: " + path + ", być może inny program (np. explorator windows) go używa");
                     string deleteDirectoryAgain = "Czy spróbować ponownie skasować folder folderNames";
-                    if (closedQuestion(deleteDirectoryAgain))
+                    if (ClosedQuestion(deleteDirectoryAgain))
                     {
-                        deleteDirectory(path, folderNames);
+                        DeleteDirectory(path, folderNames);
                     }
                     return false;
                 }
@@ -84,7 +84,7 @@ namespace cs1
             }
         }
 
-        public static void drownItDown()
+        public static void DrownItDown()
         {
             Console.WriteLine("3. DrownItDown:");
             Console.WriteLine("Tworzenie pliku na wybranym poziomie\n");
@@ -95,15 +95,15 @@ namespace cs1
 
                 string questionDeepDive = "Czy chcesz teraz wybrać funkcję DeepDive";
                 
-                if (true == closedQuestion(questionDeepDive))
+                if (true == ClosedQuestion(questionDeepDive))
                 {
-                    deepDive();
+                    DeepDive();
                 }
             }
             else
             {
                 int fileLevel = 0;
-                fileLevel = getNumberFromUser(fileLevel, 1, quantityDirectory);
+                fileLevel = GetNumberFromUser(fileLevel, 1, quantityDirectory);
                 string fileName = "plik.txt";
 
                 string filePath = path;
@@ -123,7 +123,7 @@ namespace cs1
                 else
                 {
                     string questionOverwriting = "Plik już istnieje - czy nadpisać ?";
-                    if (true == closedQuestion(questionOverwriting))
+                    if (true == ClosedQuestion(questionOverwriting))
                     {
                         fileCreate = true;
                         //Console.WriteLine("Plik już istniał - nadpisanie:");
@@ -155,15 +155,15 @@ namespace cs1
             }
         }
 
-        public static void deepDive()
+        public static void DeepDive()
         {
             if (folderNames != null)
             {
                 Console.WriteLine("Struktura folderów została już utworzona przez funkcję DeepDive:");
                 string questionDirectory = "Czy chcesz stworzyć nową strukturę folderów ?";
-                if (true == closedQuestion(questionDirectory))
+                if (true == ClosedQuestion(questionDirectory))
                 {
-                    deleteDirectory(path, folderNames[0]);
+                    DeleteDirectory(path, folderNames[0]);
                     folderNames = null;
                 }
                 else
@@ -173,7 +173,7 @@ namespace cs1
             }
             Console.WriteLine("\nIle folderów chcesz utworzyć:");
 
-            quantityDirectory = getNumberFromUser(quantityDirectory, 1, 5);
+            quantityDirectory = GetNumberFromUser(quantityDirectory, 1, 5);
 
             folderNames = new string[quantityDirectory];
 
@@ -181,25 +181,22 @@ namespace cs1
 
             for (int i = 0; i < quantityDirectory; i++)
             {
-                folderNames[i] = Guid.NewGuid().ToString() + Path.DirectorySeparatorChar;
+                folderNames[i] = Path.Combine(Guid.NewGuid().ToString(), Path.DirectorySeparatorChar.ToString());
                 Console.WriteLine(folderNames[i]);
                 Directory.CreateDirectory(deepPath + folderNames[i]);
-                //deepPath = deepPath + folderNames[i] + "\\";
                 deepPath = Path.Combine(deepPath, folderNames[i]);
-
-                Console.WriteLine("Ścieżka do ostatniego folderu: " + deepPath);
             }
 
             Console.WriteLine("\nStruktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
         }
         
-        public static void fizzBuzz()
+        public static void FizzBuzz()
         {
             Console.WriteLine("1. FizzBuzz");
             Console.WriteLine("Czy liczba jest podzielna przez 2 - Fizz, przez 3 - Buzz czy przez 2 i 3 - FizzBuzz:");
 
             int numberFizzBuzz = 0;
-            numberFizzBuzz = getNumberFromUser(numberFizzBuzz, 0, 1000);
+            numberFizzBuzz = GetNumberFromUser(numberFizzBuzz, 0, 1000);
 
             if ((numberFizzBuzz % 2 == 0) && (numberFizzBuzz % 3 == 0))
             {
@@ -247,19 +244,19 @@ namespace cs1
                     case '1':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 1. FizzBuzz:");
-                        fizzBuzz();
+                        FizzBuzz();
                         break;
 
                     case '2':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 2. DeepDive:");
-                        deepDive();
+                        DeepDive();
                         break;
 
                     case '3':
                         Console.Clear();
                         Console.WriteLine("Wybierasz 3. DrownItDown:");
-                        drownItDown();
+                        DrownItDown();
                         break;
 
                     case '4':
@@ -268,7 +265,7 @@ namespace cs1
                         
                         if (folderNames != null)
                         {
-                            deleteDirectory(path, folderNames[0]);
+                            DeleteDirectory(path, folderNames[0]);
                         }
 
                         System.Environment.Exit(1);
