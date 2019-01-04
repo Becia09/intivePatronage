@@ -181,12 +181,11 @@ namespace cs1
 
             for (int i = 0; i < quantityDirectory; i++)
             {
-                folderNames[i] = Path.Combine(Guid.NewGuid().ToString(), Path.DirectorySeparatorChar.ToString());
-                Console.WriteLine(folderNames[i]);
+                folderNames[i] = Guid.NewGuid().ToString() + Path.DirectorySeparatorChar;
+                //Console.WriteLine(folderNames[i]);
                 Directory.CreateDirectory(deepPath + folderNames[i]);
                 deepPath = Path.Combine(deepPath, folderNames[i]);
             }
-
             Console.WriteLine("\nStruktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
         }
         
