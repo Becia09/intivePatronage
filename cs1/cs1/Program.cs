@@ -5,7 +5,7 @@ namespace cs1
 {
     public class Patronage
     {
-        public static string path = @"..\..\deepDive\";
+        public static string path = "." + Path.DirectorySeparatorChar;
         public static int quantityDirectory;
         public static string[] folderNames;
 
@@ -177,16 +177,16 @@ namespace cs1
 
             folderNames = new string[quantityDirectory];
 
-            string deepPath = path;
+            string deepPath = Patronage.path;
 
             for (int i = 0; i < quantityDirectory; i++)
             {
-                folderNames[i] = Guid.NewGuid().ToString() + Path.DirectorySeparatorChar;
-                //Console.WriteLine(folderNames[i]);
-                Directory.CreateDirectory(deepPath + folderNames[i]);
+                folderNames[i] = Guid.NewGuid().ToString();
                 deepPath = Path.Combine(deepPath, folderNames[i]);
+                Directory.CreateDirectory(deepPath);
             }
-            Console.WriteLine("\nStruktura folderów została stworzona. Naciśnij enter aby powrócić do menu");
+
+            Console.WriteLine("\nStruktura folderów:\n" + deepPath + "\nzostała stworzona. Naciśnij enter aby powrócić do menu");
         }
         
         public static void FizzBuzz()
