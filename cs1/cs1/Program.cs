@@ -17,7 +17,7 @@ namespace cs1
             {
                 Console.WriteLine("Podaj liczbę w zakresie " + rangeBottom + " - " + rangeTop);
                 flag = Int32.TryParse(Console.ReadLine(), out number);
-                if (flag == false)
+                if (false == flag)
                 {
                     Console.WriteLine("Wartość niepoprawna, spróbuj jeszcze raz");
                 }
@@ -27,7 +27,7 @@ namespace cs1
                     Console.WriteLine("Podana liczba jest mniejsza od " + rangeBottom + " lub większa od " + rangeTop + ", spróbuj jeszcze raz");
                 }
             }
-            while (flag == false);
+            while (false == flag);
 
             return number;
         }
@@ -95,7 +95,7 @@ namespace cs1
 
                 string questionDeepDive = "Czy chcesz teraz wybrać funkcję DeepDive";
                 
-                if (true == ClosedQuestion(questionDeepDive))
+                if (ClosedQuestion(questionDeepDive))
                 {
                     DeepDive();
                 }
@@ -123,14 +123,14 @@ namespace cs1
                 else
                 {
                     string questionOverwriting = "Plik już istnieje - czy nadpisać ?";
-                    if (true == ClosedQuestion(questionOverwriting))
+                    if (ClosedQuestion(questionOverwriting))
                     {
                         fileCreate = true;
                         //Console.WriteLine("Plik już istniał - nadpisanie:");
                     }
                 }
 
-                if (true == fileCreate)
+                if (fileCreate)
                 {
                     try
                     {
@@ -144,7 +144,7 @@ namespace cs1
                     }
                 }
 
-                if (true == fileCreate)
+                if (fileCreate)
                 {
                     Console.WriteLine("\nPlik został utworzony. Naciśnij enter aby powrócić do menu");
                 }
@@ -161,7 +161,7 @@ namespace cs1
             {
                 Console.WriteLine("Struktura folderów została już utworzona przez funkcję DeepDive:");
                 string questionDirectory = "Czy chcesz stworzyć nową strukturę folderów ?";
-                if (true == ClosedQuestion(questionDirectory))
+                if (ClosedQuestion(questionDirectory))
                 {
                     DeleteDirectory(path, folderNames[0]);
                     folderNames = null;
