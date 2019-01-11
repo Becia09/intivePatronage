@@ -16,7 +16,7 @@ namespace WebCoreApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "fizz", "buzz" };
+            return new string[] { "Podaj liczbę po ukośniku" };
         }
 
         // GET api/<controller>/5
@@ -24,7 +24,7 @@ namespace WebCoreApi.Controllers
         [HttpGet("{id}")]
         public string Get(string id)
         {
-            return this.fb.FizzOrBuzz(id);
+            return fb.FizzOrBuzz(id);
         }
 
         // POST api/<controller>
