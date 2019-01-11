@@ -8,22 +8,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebCoreApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]  //[Route("[controller]&number")]
     public class FizzBuzzController : Controller
     {
-        /*/ GET: api/<controller>
+        private FizzBuzz fb = new FizzBuzz();
+        // GET: api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "fizz", "buzz" };
-        }*/
+        }
 
         // GET api/<controller>/5
+        //[Route("&number=")]
         [HttpGet("{id}")]
         public string Get(string id)
         {
-            FizzBuzz fb = new FizzBuzz();
-            return fb.FizzOrBuzz(id);
+            return this.fb.FizzOrBuzz(id);
         }
 
         // POST api/<controller>
