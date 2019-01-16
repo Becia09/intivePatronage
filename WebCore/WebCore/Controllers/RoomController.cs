@@ -107,7 +107,7 @@ namespace WebCoreApi.Controllers
         [HttpGet("list")]
         public string GetList()
         {
-            string list = "Nr Id  Nazwa pokoju\n";
+            string list = "Nr Id Nazwa pokoju\n";
             int i = 1;
             foreach (Room r in roomList)
             {
