@@ -61,24 +61,7 @@ namespace WebCoreApi.Controllers
             }
         }
 
-        // GET api/<controller>/add
-        //https://localhost:44394/room/edit/2
-        [HttpGet("edit/{id}")]
-        public string GetEditIf(int id)
-        {
-            if (roomList.Exists(Room => Room.id == id))
-            {
-                Room rEdit = roomList.Find(Room => Room.id == id); //zwraca pierwszy element spełniający warunek, jeśli nie ma elementu to wartość domyślną dla typu elementó listy
-                return rEdit.name;
-            }
-            else
-            {
-                return "Nie ma elementu o numerze" + id;
-            }
-        }
-
-
-        // GET api/<controller>/add
+        // GET api/<controller>/add             //dodatkowa funkcja pozwalająca sprawdzić jakie mamy pokoje
         //https://localhost:44394/room/list
         [HttpGet("list")]
         public string GetList()

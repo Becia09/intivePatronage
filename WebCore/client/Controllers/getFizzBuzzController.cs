@@ -18,19 +18,14 @@ namespace client.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            string html = string.Empty;                             //wyrzucić do odzielnej klasy; ustawić domyślny kontroler
+            string html = string.Empty;
             string url = "https://localhost:44394/fizzbuzz/" + id;
 
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            //request.Method = "GET";
-            //request.ContentType = "application/x-www-form-urlencoded";
-            //request.AutomaticDecompression = DecompressionMethods.GZip;
-
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream stream = response.GetResponseStream();
             StreamReader readStream = new StreamReader(stream, Encoding.UTF8);
-            //StreamReader reader = new StreamReader(stream);
             html = readStream.ReadToEnd();
 
             response.Close();

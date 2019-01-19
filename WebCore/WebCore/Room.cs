@@ -14,8 +14,8 @@ namespace WebCoreApi
         }
 
         public int id;
-        public static int nextId;
+        public static int nextId = 0;
         public string name;
-        public bool availability = true;
+        //public bool availability = true;
     }
 }
