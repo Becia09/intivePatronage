@@ -23,7 +23,6 @@ namespace WebCoreApi.Controllers
         [HttpPut("add")]
         public int PutAdd(Models.RoomModel rm)
         {
-            //bool flag = false;
             Room r = new Room(rm.name);
             roomList.Add(r);
             return r.id;
