@@ -14,7 +14,7 @@ namespace client.Controllers
     [Route("[controller]")]
     public class GetFizzBuzzController : Controller
     {
-        // GET api/<controller>/5
+        // GET <controller>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
